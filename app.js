@@ -6,7 +6,25 @@ require("express-async-errors");
 const app = express();
 
 app.set("view engine", "ejs");
+
+const csrf = require("host-csrf");
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser(process.env.SESSION_SECRET));
+
 app.use(express.urlencoded({ extended: true }));
+
+let csrf_development_mode = true;
+if (app.get("env") === "production") {
+  csrf_development_mode = false;
+  app.set("trust proxy", 1);
+}
+const csrf_options = {
+  protected_operations: ["PATCH"],
+  protected_content_types: ["application/json"],
+  development_mode: csrf_development_mode,
+};
+app.use(csrf(csrf_options));
 
 const MongoDBStore = require("connect-mongodb-session")(session);
 const url = process.env.MONGO_URI;
