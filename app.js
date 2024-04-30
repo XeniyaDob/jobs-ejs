@@ -74,6 +74,9 @@ app.use("/secretWord", secretWordRouter);
 const auth = require("./middleware/auth");
 app.use("/secretWord", auth, secretWordRouter);
 
+const itemsRouter = require("./routes/items");
+app.use("/", auth, itemsRouter);
+
 app.use((req, res) => {
   res.status(404).send(`That page (${req.url}) was not found.`);
 });
