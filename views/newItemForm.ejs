@@ -1,0 +1,27 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<h2>Add a New Plant</h2>
+
+<form method="POST" action="/items">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="trees">Trees</option>
+            <option value="shrubs">Shrubs</option>
+            <option value="herbs">Herbs</option>
+            <option value="fern">Fern</option>
+        </select>
+    </div>
+    
+    <button type="submit">add</button>
+    <a href="/items">
+        <button type="button">cancel</button>
+    </a>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
+
+<%- include("partials/footer.ejs") %>
