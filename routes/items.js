@@ -18,12 +18,12 @@ router.route("/items").get(getItems).post(addItem);
 router.route("/items/new").get(getNewItemForm);
 
 //GET /items/edit/:id (Get a particular entry and show it in the edit box)
-router.route("/edit/:id").get(editItem);
+router.route("/items/edit/:id").get(editItem);
 
 //POST /items/update/:id (Update a particular entry)
-router.route("/update/:id").post(updateItem);
+router.route("/items/update/:id").post(updateItem);
 
 //POST /items/delete/:id (Delete an entry)
-router.route("/delete/:id").post(deleteItem);
+router.route("/items/delete/:id").post(deleteItem);
 
 module.exports = router;

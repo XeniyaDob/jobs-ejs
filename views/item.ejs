@@ -4,16 +4,24 @@
 
 <form method="POST" action="/items/update/<%= item.id %>">
     <div>
-        <label for="title">Name:</label>
-        <input type="text" id="title" name="title" value="<%= item ? item.name : '' %>"/>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= item ? item.name : '' %>"/>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="price" id="price" name="price" value="<%= item ? item.price : '' %>"/>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <input type="description" id="description" name="description" value="<%= item ? item.description : '' %>"/>
     </div>
     <div>
         <label for="type">Type:</label>
         <select id="type" name="type">
-            <option value="trees" <%= item && item.type === 'trees' ? 'selected' : '' %>>trees</option>
-            <option value="shrubs" <%= item && item.type === 'shrubs' ? 'selected' : '' %>>shrubs</option>
-            <option value="herbs" <%= item && item.type === 'herbs' ? 'selected' : '' %>>herbs</option>
-            <option value="ferns" <%= item && item.type === 'ferns' ? 'selected' : '' %>>fern</option>
+            <option value="trees" <%= item && item.type === 'trees' %>>trees</option>
+            <option value="shrubs" <%= item && item.type === 'shrubs' %>>shrubs</option>
+            <option value="herbs" <%= item && item.type === 'herbs' %>>herbs</option>
+            <option value="ferns" <%= item && item.type === 'ferns' %>>fern</option>
         </select>
     </div>
     
