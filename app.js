@@ -1,16 +1,32 @@
 require("dotenv").config(); // to load the .env file into the process.env object
 const session = require("express-session");
 const express = require("express");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
+const csrf = require("host-csrf");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const passport = require("passport");
+const passportInit = require("./passport/passportInit");
 require("express-async-errors");
 
 const app = express();
 
 app.set("view engine", "ejs");
 
-const csrf = require("host-csrf");
-
-const cookieParser = require("cookie-parser");
 app.use(cookieParser(process.env.SESSION_SECRET));
+
+app.use(helmet());
+
+app.use(xss());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,7 +42,6 @@ const csrf_options = {
 };
 app.use(csrf(csrf_options));
 
-const MongoDBStore = require("connect-mongodb-session")(session);
 const url = process.env.MONGO_URI;
 
 const store = new MongoDBStore({
@@ -52,9 +67,6 @@ if (app.get("env") === "production") {
 }
 
 app.use(session(sessionParms));
-
-const passport = require("passport");
-const passportInit = require("./passport/passportInit");
 
 passportInit();
 app.use(passport.initialize());
