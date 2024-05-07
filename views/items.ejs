@@ -1,0 +1,35 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+<h2>Plants Catalog</h2>
+<a href="/items/new">
+    <button type="button">Add a plant</button>
+</a>
+<table id="items-table">
+    <tr id="items-table-header">
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th colspan="2"></th>
+    </tr>
+    <% if (items && items.length) { %>
+        <% items.forEach((item) => { %>
+        <tr>
+            <td><%= item.name %></td>
+            <td><%= item.type %></td>
+            <td><%= item.price %></td>
+            <td>
+                <a href="/items/edit/<%= item.id %>">
+                    <button type="button">edit</button>
+                </a>
+            </td>
+            <td>
+                <form action="/items/delete/<%= item.id %>" method="POST">
+                    <button type="submit">delete</button>
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    <% } %>
+</table>
+<%- include("partials/footer.ejs") %>
