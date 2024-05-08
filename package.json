@@ -1,13 +1,12 @@
 {
   "name": "jobs-ejs",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "NODE_ENV=test mocha tests/*.js --exit"
+    "test": "NODE_ENV=test mocha tests/*.mjs --exit"
   },
   "author": "",
   "license": "ISC",

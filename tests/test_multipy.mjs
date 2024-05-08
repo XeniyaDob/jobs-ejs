@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { multiply } from "../utils/multiply.js";
+import { multiply } from "../utils/multiply.mjs";
 
 describe("testing multiply", () => {
   it("should give 7*6 is 42", (done) => {
