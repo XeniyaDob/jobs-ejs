@@ -83,6 +83,15 @@ app.use("/sessions", require("./routes/sessionRoutes"));
 const secretWordRouter = require("./routes/secretWord");
 app.use("/secretWord", secretWordRouter);
 
+app.use((req, res, next) => {
+  if (req.path == "/multiply") {
+    res.set("Content-Type", "application/json");
+  } else {
+    res.set("Content-Type", "text/html");
+  }
+  next();
+});
+
 app.get("/multiply", (req, res) => {
   const result = req.query.first * req.query.second;
   if (result.isNaN) {
